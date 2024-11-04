@@ -1,4 +1,14 @@
-export default function Sidebar({onClick}: {onClick: () => void}){
+import RecipeList from "./RecipeList"
+
+type SidebarProps = {
+    addNewRecipes: () => void 
+    recipes: Array<{id: number, order: number, name:string, recipe: string, fontColor: string}>
+    deleteRecipe: (id: number) => void 
+    updateFontColor: (id: number, color: string) => void 
+}
+
+
+export default function Sidebar({ recipes ,addNewRecipes, deleteRecipe, updateFontColor }: SidebarProps ){
    
    
    
@@ -7,19 +17,25 @@ export default function Sidebar({onClick}: {onClick: () => void}){
     return (
         <div id="container2" className="sidebar">
         <div >
-        Sidebar
+        Add A Recipe 
         </div>
         
+        
+        
+        
         <br></br>
-        <br></br>
-        <button onClick={onClick}>Edit Recipe</button>
-        <br></br>
-        <br></br>
-        <button onClick={onClick}>Delete Recipe</button>
-        <br></br>
-        <br></br>
-        <button onClick={onClick}>Add Recipe</button>
-
+        <button onClick={addNewRecipes}>Add Recipe</button>
+        <div>
+            { recipes.map(r => <RecipeList 
+            updateFontColor={updateFontColor} 
+            deleteRecipe={deleteRecipe} 
+            key={r.id}
+            card={r}/> ) }
+            
+            
+            
+            
+        </div>
 
         </div>
 
