@@ -1,15 +1,21 @@
+import { Button, Modal } from "react-bootstrap" 
+import FontForm from "./FontForm"
+import { useState } from "react"
 
 
 type RecipeListProps ={
     card: {id: number, order: number, name:string, recipe: string, fontColor: string} 
     deleteRecipe: (id: number) => void 
-    updateFontColor: (id: number, color: string) => void 
+    updateRecipe: (property: string, color: string, id: number ) => void 
+    
 }
 
 
 
-export default function RecipeList({card, deleteRecipe, updateFontColor}: RecipeListProps ){
+export default function RecipeList({card, deleteRecipe, updateRecipe, }: RecipeListProps ){
     
+    const [isNewAddRecipeOpen, setIsNewAddRecipeOpen] = useState(false)
+    const handleClose = () => setIsNewAddRecipeOpen(false)
     
     
     
@@ -24,7 +30,28 @@ export default function RecipeList({card, deleteRecipe, updateFontColor}: Recipe
         <button onClick={() => deleteRecipe(card.id)}>X</button>
         <br></br>
         <br></br>
-        <button onClick={() => updateFontColor(card.id, "red")} >Select Recipe</button>
+        <button onClick={() => updateRecipe("fontColor", "red", card.id, )} >Select Recipe</button>
+        
+        <Button onClick={() => setIsNewAddRecipeOpen(true)}>Update Recipe</Button> 
+        
+        <Modal show={isNewAddRecipeOpen} onHide={handleClose}>
+            <Modal.Header closeButton>
+                <Modal.Title>Adding A Recipe</Modal.Title>
+            </Modal.Header>
+        <Modal.Body>
+            <FontForm  updateRecipe={updateRecipe} card={card} handleClose={handleClose} /> 
+        </Modal.Body>
+            <Modal.Footer>
+                
+            </Modal.Footer>
+        </Modal>
+        
+        
+        
+        
+        
+        
+        
         </div>
     )
 }

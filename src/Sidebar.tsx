@@ -1,33 +1,42 @@
+import { Button } from "react-bootstrap"
 import RecipeList from "./RecipeList"
 
 type SidebarProps = {
     addNewRecipes: () => void 
     recipes: Array<{id: number, order: number, name:string, recipe: string, fontColor: string}>
     deleteRecipe: (id: number) => void 
-    updateFontColor: (id: number, color: string) => void 
+    updateRecipe: ( property: string, value: string, id: number ) => void 
+    
 }
 
 
-export default function Sidebar({ recipes ,addNewRecipes, deleteRecipe, updateFontColor }: SidebarProps ){
+    
+export default function Sidebar({ recipes ,addNewRecipes, deleteRecipe, updateRecipe,  }: SidebarProps ){
    
-   
-   
+    
    
    
     return (
         <div id="container2" className="sidebar">
         <div >
         Add A Recipe 
+        
+        
+        
+        
         </div>
         
-        
-        
-        
         <br></br>
-        <button onClick={addNewRecipes}>Add Recipe</button>
+        <Button onClick={addNewRecipes}>Add Recipe</Button>
+        
+        <br></br> 
+        <br></br>
+        
+        
         <div>
             { recipes.map(r => <RecipeList 
-            updateFontColor={updateFontColor} 
+            
+            updateRecipe={updateRecipe} 
             deleteRecipe={deleteRecipe} 
             key={r.id}
             card={r}/> ) }

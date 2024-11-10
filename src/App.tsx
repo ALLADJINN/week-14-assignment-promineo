@@ -54,20 +54,27 @@ export default function App (){
     setRecipes( recipes.filter(r => r.id !== id))
   }
   
-  const updateFontColor = (idToUpdate: number, newColor: string ) => {
-    setRecipes(recipes.map(item => (
+  const updateRecipe = ( property: string, newValue: string, idToUpdate: number
+    ) => {
+      if(idToUpdate === undefined){
+        return
+      }
+    
+    setRecipes(currentRecipes => currentRecipes.map(item => (
       item.id !== idToUpdate ? item : {
         ...item, 
-        fontColor: newColor 
+        [property]: newValue
       }
     )))
-  }
+  } 
+
+  
   
   return <div className="mx-auto">
       <h1 className="Heading">Recipe Manager</h1>
       
       <Sidebar 
-      updateFontColor= {updateFontColor}
+      updateRecipe= {updateRecipe}
       deleteRecipe = {deleteRecipe} 
       recipes={recipes} 
       addNewRecipes={addNewRecipes} 
